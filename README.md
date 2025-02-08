@@ -156,8 +156,3 @@ Contributions are welcome! Please feel free to submit issues and pull requests t
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgements
-
-- Thanks to all the AI providers for their APIs
-- Contributors and maintainers of the dependencies used in this project
