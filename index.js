@@ -9,6 +9,7 @@ const {
   HarmBlockThreshold,
   HarmCategory,
 } = require("@google/generative-ai");
+const defaultLLMConfig = require("./llm");
 
 class AIInterface {
   constructor(config) {
@@ -18,17 +19,17 @@ class AIInterface {
 
   getLLMConfig() {
     const provider = this.config.provider.toLowerCase();
-    let llmConfig = { ...this.config.default };
+    let llmConfig = { ...defaultLLMConfig.default, ...this.config.default };
 
     const providerConfigs = {
-      moonshot: this.config.moonshot,
-      openai: this.config.openai,
-      azure: this.config.azure,
-      gemini: this.config.gemini,
-      g4f: this.config.g4f,
-      gpt4js: this.config.gpt4js,
-      other: this.config.otherAI,
-      deepseek: this.config.deepseek, // 添加 deepseek 配置
+      moonshot: { ...defaultLLMConfig.moonshot, ...this.config.moonshot },
+      openai: { ...defaultLLMConfig.openai, ...this.config.openai },
+      azure: { ...defaultLLMConfig.azure, ...this.config.azure },
+      gemini: { ...defaultLLMConfig.gemini, ...this.config.gemini },
+      g4f: { ...defaultLLMConfig.g4f, ...this.config.g4f },
+      gpt4js: { ...defaultLLMConfig.gpt4js, ...this.config.gpt4js },
+      other: { ...defaultLLMConfig.otherAI, ...this.config.otherAI },
+      deepseek: this.config.deepseek, // add deepseek config
     };
 
     if (provider in providerConfigs) {
@@ -70,12 +71,12 @@ class AIInterface {
         content = await this.callOpenAI(prompt);
     }
 
-    return content.replace("\n", "");
+    return content ? content.replace("\n", "") : "";
   }
 
   async callG4F(prompt) {
     const g4f = new G4F();
-    const modelName = this.config.g4f.modelName;
+    const modelName = this.llmConfig.modelName;
     const messages = [{ role: "user", content: prompt }];
     try {
       return await g4f.chatCompletion(messages, { model: modelName });
@@ -86,12 +87,13 @@ class AIInterface {
   }
 
   async callGPT4JS(prompt) {
-    const providerName = this.config.gpt4js?.provider || "Nextway";
+    const providerName = this.llmConfig?.provider || "Nextway";
     const gpt4js = await getGPT4js();
     const provider = gpt4js.createProvider(providerName);
-    const modelName = this.config.gpt4js.modelName;
+    const modelName = this.llmConfig.modelName;
     const messages = [{ role: "user", content: prompt }];
     try {
+      console.log(modelName,providerName);
       return await provider.chatCompletion(
         messages,
         {

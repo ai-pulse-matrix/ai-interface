@@ -1,6 +1,6 @@
 {
   "name": "ai-interface",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "AIInterface is a flexible AI interface class that supports multiple AI providers, including OpenAI, Azure, Google Gemini, G4F, GPT4JS, other APIs, and Deepseek.",
   "main": "index.js",
   "scripts": {
