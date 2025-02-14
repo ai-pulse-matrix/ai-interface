@@ -33,6 +33,14 @@ const config = {
   },
   // Configuration for other providers...
 };
+
+// or
+const config = {
+  provider: "moonshot",
+  moonshot: {
+    apiKey: "xxxxxx-xxxxxx",
+  },
+};
 ```
 
 3. Initialize AIInterface:
