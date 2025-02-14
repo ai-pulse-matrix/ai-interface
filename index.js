@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { get } = require("lodash");
-const G4F = require("g4f");
+const { G4F } = require("g4f");
 const getGPT4js = require("gpt4js");
 const OpenAI = require("openai");
 const { OpenAIApi: AzureOpenAIApi, Configuration } = require("azure-openai");
@@ -93,7 +93,6 @@ class AIInterface {
     const modelName = this.llmConfig.modelName;
     const messages = [{ role: "user", content: prompt }];
     try {
-      console.log(modelName,providerName);
       return await provider.chatCompletion(
         messages,
         {
@@ -208,7 +207,6 @@ class AIInterface {
   }
 
   async callDeepseek(prompt) {
-    console.log(this.config.provider, JSON.stringify(this.llmConfig));
     const client = new OpenAI({
       apiKey: this.llmConfig.apiKey,
       baseURL: this.llmConfig.baseUrl,
