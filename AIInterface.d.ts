@@ -10,7 +10,7 @@ declare module "AIInterface" {
     gemini?: any;
     g4f?: any;
     gpt4js?: any;
-    customAI?: any;
+    otherAI?: any;
     deepseek?: any;
   }
 
@@ -39,7 +39,7 @@ declare module "AIInterface" {
     private callGPT4JS(prompt: string): Promise<string>;
     private callGemini(prompt: string): Promise<string>;
     private callAzure(prompt: string): Promise<string>;
-    private callCustom(prompt: string): Promise<string>;
+    private callOther(prompt: string): Promise<string>;
     private callOpenAI(prompt: string): Promise<string>;
     private callDeepseek(prompt: string): Promise<string>;
   }

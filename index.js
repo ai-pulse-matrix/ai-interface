@@ -27,7 +27,7 @@ class AIInterface {
       gemini: this.config.gemini,
       g4f: this.config.g4f,
       gpt4js: this.config.gpt4js,
-      custom: this.config.customAI,
+      other: this.config.otherAI,
       deepseek: this.config.deepseek, // 添加 deepseek 配置
     };
 
@@ -38,17 +38,6 @@ class AIInterface {
       }
     } else {
       throw new Error("LLM provider is not set in the config file.");
-    }
-
-    if (provider !== "custom") {
-      const requiredFields = ["apiKey", "modelName", "baseUrl"];
-      for (const field of requiredFields) {
-        if (!llmConfig[field]) {
-          throw new Error(
-            `${provider}: ${field} is not set in the config file.`
-          );
-        }
-      }
     }
 
     return llmConfig;
@@ -71,8 +60,8 @@ class AIInterface {
       case "azure":
         content = await this.callAzure(prompt);
         break;
-      case "custom":
-        content = await this.callCustom(prompt);
+      case "other":
+        content = await this.callOther(prompt);
         break;
       case "deepseek":
         content = await this.callDeepseek(prompt);
@@ -179,7 +168,7 @@ class AIInterface {
     return response.data.choices[0].text.trim();
   }
 
-  async callCustom(prompt) {
+  async callOther(prompt) {
     try {
       const data = { message: prompt, ...this.llmConfig.data };
       const response = await axios.post(
@@ -195,7 +184,7 @@ class AIInterface {
       }
       return "";
     } catch (error) {
-      console.error("Error making custom API call:", error);
+      console.error("Error making other API call:", error);
       throw error;
     }
   }

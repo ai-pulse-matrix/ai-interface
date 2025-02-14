@@ -1,6 +1,6 @@
 # AIInterface
 
-AIInterface is a flexible AI interface class that supports multiple AI providers, including OpenAI, Azure, Google Gemini, G4F, GPT4JS, custom APIs, and Deepseek.
+AIInterface is a flexible AI interface class that supports multiple AI providers, including OpenAI, Azure, Google Gemini, G4F, GPT4JS, other APIs, and Deepseek.
 
 ## Installation
 
@@ -22,7 +22,7 @@ const AIInterface = require("ai-interface");
 
 ```javascript
 const config = {
-  provider: "openai", // or 'azure', 'gemini', 'g4f', 'gpt4js', 'custom', 'deepseek'
+  provider: "openai", // or 'azure', 'gemini', 'g4f', 'gpt4js', 'other', 'deepseek'
   default: {
     // Default configuration
   },
@@ -66,7 +66,7 @@ main();
 - GPT4JS
 - Deepseek
 - Moonshot
-- Custom API
+- Other API
 
 ## Configuration
 
@@ -101,11 +101,11 @@ gemini: {
 }
 ```
 
-### Custom API Configuration
+### Other API Configuration
 
 ```javascript
-customAI: {
-  baseUrl: "your-custom-api-endpoint",
+otherAI: {
+  baseUrl: "your-other-api-endpoint",
   data: {
     // Additional data to send with the request
   },
@@ -131,7 +131,7 @@ config.provider = "azure";
 const azureAI = new AIInterface(config);
 ```
 
-### Custom Provider Implementation
+### Other Provider Implementation
 
 To add a new provider, extend the `AIInterface` class and implement a new method for your provider:
 
